@@ -1,0 +1,32 @@
+.navbar-nav {
+  width: 100% !important;
+}
+.form {
+  border-radius: 1rem;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  box-sizing: border-box;
+  width: 45%;
+  padding: 2rem;
+  /* margin-bottom: 3rem; */
+}
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background: black;
+  color: white;
+}
+.nav-link {
+  background: rgb(78, 78, 78) !important;
+  padding: 10px 0 !important;
+  border-radius: 0.5rem !important;
+}
+.input-group {
+  width: 140px !important;
+}
+@media screen and (max-width: 600px) {
+  .form {
+    width: 90%;
+  }
+}
