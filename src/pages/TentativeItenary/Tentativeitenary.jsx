@@ -48,7 +48,7 @@ function TentativeItinerary() {
 
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <Form className="my-5 form" onSubmit={handleSubmit}>
+      <Form className="my-5  form" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Location</Form.Label>
           <Form.Control
@@ -79,7 +79,7 @@ function TentativeItinerary() {
           </InputGroup>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="light" type="submit">
           Submit
         </Button>
       </Form>

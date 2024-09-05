@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Tentativeitenary />} />
-          <Route path="detaileditinerary" element={<Detaileditenary />} />
+          <Route path="detaileditenary" element={<Detaileditenary />} />
           <Route path="location" element={<Locationinfo />} />
           <Route path="visa" element={<VisaInfo />} />
         </Route>

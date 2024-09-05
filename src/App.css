@@ -1,19 +1,58 @@
-.navbar-nav {
+body {
+  background: rgb(20, 56, 51);
+  background: linear-gradient(
+    0deg,
+    rgba(30, 32, 47, 1) 0%,
+    rgba(31, 49, 73, 1) 100%
+  );
+}
+
+nav > .container {
+  max-width: 95%;
+}
+nav > .container > .row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+nav > .container > .navbar-nav {
   width: 100% !important;
+  justify-content: space-around;
+}
+.navbar-nav .nav-item {
+  border-radius: 1rem;
+  background: rgb(34, 195, 203);
+  background: linear-gradient(
+    -50deg,
+    rgb(66, 199, 43) 20%,
+    rgb(68, 92, 179) 100%
+  );
+}
+
+.navbar-nav .d-flex {
+  /* padding: 10px; */
+}
+.navbar-nav .d-flex svg {
+  align-self: flex-end;
+  border: 0.6px solid;
+  border-radius: 50%;
+  padding: 2px;
 }
 .form {
   border-radius: 1rem;
-  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
-    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  box-shadow: rgba(46, 46, 46, 0.48) 6px 2px 16px 0px,
+    rgba(93, 93, 93, 0.8) -6px -2px 16px 0px;
   box-sizing: border-box;
   width: 45%;
   padding: 2rem;
+  background: #88baa5;
   /* margin-bottom: 3rem; */
+}
+.form label {
+  color: white;
 }
 footer {
   width: 100%;
-  position: fixed;
-  bottom: 0;
+
   background: black;
   color: white;
 }
@@ -25,8 +64,20 @@ footer {
 .input-group {
   width: 140px !important;
 }
+
+.font-12 {
+  font-size: 10px;
+}
+.font-12 span {
+  /* font-size: 26px; */
+}
 @media screen and (max-width: 600px) {
   .form {
     width: 90%;
+  }
+}
+@media screen and (min-width: 980px) {
+  .col-lg-3 {
+    width: 23.5% !important;
   }
 }
