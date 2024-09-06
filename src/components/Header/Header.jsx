@@ -2,95 +2,144 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaComments } from "react-icons/fa";
 
 function Header() {
+  const location = useLocation(); // Get the current URL
+
   return (
     <>
-      <h1 className="text-center text-white pt-3">Travel Genie</h1>
-      <span className="text-grey text-white px-5">Hello Traveler,</span>
-      <h3 className="text-dark text-white px-5">WHAT CAN I DO FOR YOU?</h3>
+      <h2 className="text-center text-white pt-3">Travel Genie</h2>
+      <h6 className="text-secondary px-5 mx-md-5 mt-5">Hello Traveler,</h6>
+      <h6 className="text-white px-5 mx-md-5">WHAT CAN I DO FOR YOU?</h6>
       <Navbar bg="transparent" data-bs-theme="dark">
         <Container>
-          {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
-          <Nav className="me-auto row ">
-            <Nav.Item className="mt-3 col-5 col-lg-3 ">
-              <div className="d-flex flex-column align-items-normal  p-2">
-                <FaComments className="mb-2 text-white" size={24} />
-
-                <p className=" text-white mt-5 font-12">
-                  <span className="thumbnail-heading lead lead-text">
-                    Tentative Itinerary
-                  </span>
-                  <br /> to confirm your ideas.
-                </p>
-
-                <Link to="/" className="btn btn-light mt-2">
-                  Let{"'"}s Plan
+          <Nav className="me-auto row">
+            {/* Show all links when the current path is '/' */}
+            {location.pathname === "/" ? (
+              <>
+                <Link to="tentativeitenary" className="mt-3 col-5 col-lg-3">
+                  <Nav.Item>
+                    <div className="d-flex flex-column align-items-normal p-2">
+                      <FaComments className="mb-2 text-white" size={24} />
+                      <h2 className="thumbnail-heading text-white">
+                        Tentative Travel Plan
+                      </h2>
+                      <h6 className="text-white">
+                        to affirm your travel thoughts.
+                      </h6>
+                    </div>
+                  </Nav.Item>
                 </Link>
-              </div>
-            </Nav.Item>
-
-            <Nav.Item className="mt-3 col-5 col-lg-3 ">
-              <div className="d-flex flex-column align-items-normal  p-2">
-                {/* Top: Chat Icon */}
-                <FaComments className="mb-2 text-white" size={24} />
-
-                {/* Center: Text Heading */}
-                <p className=" text-white mt-5 font-12">
-                  <span className="thumbnail-heading lead lead-text">
-                    Detailed Itinerary
-                  </span>
-                  <br /> to confirm your ideas.
-                </p>
-
-                {/* Bottom: Let's Plan Button */}
-                <Link to="detaileditenary" className="btn btn-light mt-2">
-                  Let's Plan
+                <Link to="detaileditenary" className="mt-3 col-5 col-lg-3">
+                  <Nav.Item>
+                    <div className="d-flex flex-column align-items-normal p-2">
+                      <FaComments className="mb-2 text-white" size={24} />
+                      <h2 className="thumbnail-heading text-white">
+                        Detailed Travel Plan
+                      </h2>
+                      <h6 className="text-white">
+                        to get you started with budgeting.
+                      </h6>
+                    </div>
+                  </Nav.Item>
                 </Link>
-              </div>
-            </Nav.Item>
-
-            <Nav.Item className="mt-3 col-12 col-lg-3 ">
-              <div className="d-flex flex-column align-items-normal  p-2">
-                {/* Top: Chat Icon */}
-                <FaComments className="mb-2 text-white" size={24} />
-
-                {/* Center: Text Heading */}
-                <p className=" text-white mt-5 font-12">
-                  <span className="thumbnail-heading lead lead-text">
-                    Visa Information
-                  </span>
-                  <br /> to learn about visa requirements & process.
-                </p>
-
-                {/* Bottom: Let's Plan Button */}
-                <Link to="visa" className="btn btn-light mt-2">
-                  Let's Plan
+                <Link to="location" className="mt-3 col-10 col-lg-3">
+                  <Nav.Item>
+                    <div className="d-flex flex-column align-items-normal p-2">
+                      <FaComments className="mb-2 text-white" size={24} />
+                      <h2 className="thumbnail-heading text-white">
+                        Visa Information
+                      </h2>
+                      <h6 className="text-white">
+                        to learn about visa requirements & process.
+                      </h6>
+                    </div>
+                  </Nav.Item>
                 </Link>
-              </div>
-            </Nav.Item>
-
-            <Nav.Item className="mt-3 col-12 col-lg-3 ">
-              <div className="d-flex flex-column align-items-normal  p-2">
-                {/* Top: Chat Icon */}
-                <FaComments className="mb-2 text-white" size={24} />
-
-                {/* Center: Text Heading */}
-                <p className=" text-white mt-5 font-12">
-                  <span className="thumbnail-heading lead lead-text">
-                    Location Information
-                  </span>
-                  <br /> to know top places and things to do.
-                </p>
-
-                {/* Bottom: Let's Plan Button */}
-                <Link to="location" className="btn btn-light mt-2">
-                  Let's Plan
+                <Link to="visa" className="mt-3 col-10 col-lg-3">
+                  <Nav.Item>
+                    <div className="d-flex flex-column align-items-normal p-2">
+                      <FaComments className="mb-2 text-white" size={24} />
+                      <h2 className="thumbnail-heading text-white">
+                        Location Information
+                      </h2>
+                      <h6 className="text-white">
+                        to know top places and things to do.
+                      </h6>
+                    </div>
+                  </Nav.Item>
                 </Link>
-              </div>
-            </Nav.Item>
+              </>
+            ) : (
+              // Render individual links for specific paths
+              <>
+                {location.pathname === "/tentativeitenary" && (
+                  <Link to="tentativeitenary">
+                    <Nav.Item className="col-12 mt-3 ">
+                      <div className="d-flex flex-column align-items-normal p-2">
+                        <FaComments className="mb-2 text-white" size={24} />
+                        <h2 className="thumbnail-heading text-white">
+                          Tentative Travel Plan
+                        </h2>
+                        <h6 className="text-white">
+                          to affirm your travel thoughts.
+                        </h6>
+                      </div>
+                    </Nav.Item>
+                  </Link>
+                )}
+
+                {location.pathname === "/detaileditenary" && (
+                  <Link to="detaileditenary">
+                    <Nav.Item className="col-12 mt-3">
+                      <div className="d-flex flex-column align-items-normal p-2">
+                        <FaComments className="mb-2 text-white" size={24} />
+                        <h2 className="thumbnail-heading text-white">
+                          Detailed Travel Plan
+                        </h2>
+                        <h6 className="text-white">
+                          to get you started with budgeting.
+                        </h6>
+                      </div>
+                    </Nav.Item>
+                  </Link>
+                )}
+
+                {location.pathname === "/location" && (
+                  <Link to="location">
+                    <Nav.Item className="col-12 mt-3">
+                      <div className="d-flex flex-column align-items-normal p-2">
+                        <FaComments className="mb-2 text-white" size={24} />
+                        <h2 className="thumbnail-heading text-white">
+                          Visa Information
+                        </h2>
+                        <h6 className="text-white">
+                          to learn about visa requirements & process.
+                        </h6>
+                      </div>
+                    </Nav.Item>
+                  </Link>
+                )}
+
+                {location.pathname === "/visa" && (
+                  <Link to="visa">
+                    <Nav.Item className="col-12 mt-3">
+                      <div className="d-flex flex-column align-items-normal p-2">
+                        <FaComments className="mb-2 text-white" size={24} />
+                        <h2 className="thumbnail-heading text-white">
+                          Location Information
+                        </h2>
+                        <h6 className="text-white">
+                          to know top places and things to do.
+                        </h6>
+                      </div>
+                    </Nav.Item>
+                  </Link>
+                )}
+              </>
+            )}
           </Nav>
         </Container>
       </Navbar>

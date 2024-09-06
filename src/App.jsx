@@ -14,7 +14,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Tentativeitenary />} />
+          <Route path="tentativeitenary" element={<Tentativeitenary />} />
           <Route path="detaileditenary" element={<Detaileditenary />} />
           <Route path="location" element={<Locationinfo />} />
           <Route path="visa" element={<VisaInfo />} />

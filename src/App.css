@@ -6,6 +6,9 @@ body {
     rgba(31, 49, 73, 1) 100%
   );
 }
+a {
+  text-decoration: none !important;
+}
 
 nav > .container {
   max-width: 95%;
@@ -23,7 +26,7 @@ nav > .container > .navbar-nav {
   background: rgb(34, 195, 203);
   background: linear-gradient(
     -50deg,
-    rgb(66, 199, 43) 20%,
+    rgb(101 180 87) 20%,
     rgb(68, 92, 179) 100%
   );
 }
@@ -78,6 +81,11 @@ footer {
 }
 @media screen and (min-width: 980px) {
   .col-lg-3 {
-    width: 23.5% !important;
+    width: 22% !important;
   }
+}
+
+/* changing thumbnail height to fixed */
+.navbar-nav .nav-item {
+  height: 11rem;
 }
