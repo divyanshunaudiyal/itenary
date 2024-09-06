@@ -23,9 +23,9 @@ function Header() {
                   <Nav.Item>
                     <div className="d-flex flex-column align-items-normal p-2">
                       <FaComments className="mb-2 text-white" size={24} />
-                      <h2 className="thumbnail-heading text-white">
+                      <h3 className="thumbnail-heading text-white">
                         Tentative Travel Plan
-                      </h2>
+                      </h3>
                       <h6 className="text-white">
                         to affirm your travel thoughts.
                       </h6>
