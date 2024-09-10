@@ -7,7 +7,6 @@ import countryList from "react-select-country-list";
 
 const Detaileditenary = () => {
   const countries = countryList().getData();
-
   const [visitCountry, setVisitCountry] = useState("");
   const [departureCity, setDepartureCity] = useState("");
   const [tripDuration, setTripDuration] = useState(3);
@@ -15,10 +14,13 @@ const Detaileditenary = () => {
   const [kids, setKids] = useState(0);
   const [kidsAges, setKidsAges] = useState([]);
   const [infants, setInfants] = useState(0);
+  const [responseMessage, setResponseMessage] = useState(""); // Store API response
+  const [error, setError] = useState(null); // Store error if any
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
+
+    // Gather form data
     const formData = {
       visitCountry,
       departureCity,
@@ -29,6 +31,44 @@ const Detaileditenary = () => {
       infants,
     };
     console.log("Form data submitted:", formData);
+
+    // API request logic here
+    try {
+      const apiKey =
+        "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"; // Replace with your actual OpenAI API key // Replace with your actual OpenAI API key
+      const url = "https://api.openai.com/v1/chat/completions";
+
+      const data = {
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Generate a detailed travel itinerary for a ${tripDuration}-day trip to ${visitCountry} from ${departureCity} for ${adults} adults, ${kids} kids (ages ${kidsAges.join(
+              ", "
+            )}), and ${infants} infants.`,
+          },
+        ],
+        max_tokens: 300,
+      };
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const responseData = await response.json();
+      setResponseMessage(responseData.choices[0].message.content); // Display API response
+    } catch (err) {
+      setError(err.message); // Handle errors
+    }
   };
 
   return (
@@ -83,7 +123,7 @@ const Detaileditenary = () => {
           </InputGroup>
         </Form.Group>
 
-        {/* Number of Travelers */}
+        {/* Number of Travelers - Adults */}
         <Form.Group className="mb-3">
           <Form.Label>Number of Travelers - Adults</Form.Label>
           <InputGroup>
@@ -108,6 +148,7 @@ const Detaileditenary = () => {
           </InputGroup>
         </Form.Group>
 
+        {/* Number of Travelers - Kids */}
         <Form.Group className="mb-3">
           <Form.Label>Number of Travelers - Kids (Age 2-12)</Form.Label>
           <InputGroup>
@@ -161,6 +202,7 @@ const Detaileditenary = () => {
           )}
         </Form.Group>
 
+        {/* Number of Travelers - Infants */}
         <Form.Group className="mb-3">
           <Form.Label>
             Number of Travelers - Infants (Below 2 years old)
@@ -187,9 +229,25 @@ const Detaileditenary = () => {
           </InputGroup>
         </Form.Group>
 
+        {/* Submit Button */}
         <Button variant="primary" type="submit">
           Submit
         </Button>
+
+        {/* Display the response from the API */}
+        {responseMessage && (
+          <div className="mt-4">
+            <h5>Itinerary Response:</h5>
+            <p>{responseMessage}</p>
+          </div>
+        )}
+
+        {/* Display error if any */}
+        {error && (
+          <div className="mt-4">
+            <p style={{ color: "red" }}>Error: {error}</p>
+          </div>
+        )}
       </Form>
     </div>
   );

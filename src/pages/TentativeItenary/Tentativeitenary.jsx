@@ -6,49 +6,60 @@ import InputGroup from "react-bootstrap/InputGroup";
 function TentativeItinerary() {
   const [count, setCount] = useState(3);
   const [location, setLocation] = useState("");
+  const [responseMessage, setResponseMessage] = useState(""); // Store API response here
+  const [error, setError] = useState(null); // Store error if any
 
   const handleDecrement = () => {
-    setCount((prevCount) => Math.max(prevCount - 1, 3));
+    setCount((prevCount) => Math.max(prevCount - 1, 3)); // Ensure it doesn't go below 3
   };
 
   const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
+    setCount((prevCount) => prevCount + 1); // Increase count
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const data = {
-      location: location,
-      numberOfPeople: count,
-    };
+    e.preventDefault(); // Prevent form from refreshing the page
 
     try {
-      const response = await fetch(
-        "https://api.example.com/submit", // Replace with your actual API endpoint
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const apiKey =
+        "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"; // Replace with your actual OpenAI API key
+      const url = "https://api.openai.com/v1/chat/completions";
+
+      const data = {
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: `Generate a detailed travel itinerary for a ${count}-day trip to ${location} including places to visit, activities, and dining options.`,
           },
-          body: JSON.stringify(data),
-        }
-      );
+        ],
+        max_tokens: 300,
+      };
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(data),
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error("Network response was not ok");
       }
 
-      const result = await response.json();
-      console.log("Itinerary generated:", result);
-    } catch (error) {
-      console.error("Error submitting form:", error);
+      const responseData = await response.json();
+      setResponseMessage(responseData.choices[0].message.content); // Update response display
+    } catch (err) {
+      setError(err.message); // Handle error and display it
     }
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center">
-      <Form className="my-5  form" onSubmit={handleSubmit}>
+      <Form className="my-5 form" onSubmit={handleSubmit}>
+        {/* Location Input */}
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Location</Form.Label>
           <Form.Control
@@ -60,8 +71,8 @@ function TentativeItinerary() {
         </Form.Group>
 
         {/* Counter Section */}
-        <Form.Group className="my-4" controlId="numberOfPeople">
-          <Form.Label>Number of People</Form.Label>
+        <Form.Group className="my-4" controlId="numberOfDays">
+          <Form.Label>Number of Days</Form.Label>
           <InputGroup>
             <Button variant="outline-secondary" onClick={handleDecrement}>
               -
@@ -79,9 +90,25 @@ function TentativeItinerary() {
           </InputGroup>
         </Form.Group>
 
+        {/* Submit Button */}
         <Button variant="light" type="submit">
           Submit
         </Button>
+
+        {/* Display API response */}
+        {responseMessage && (
+          <div className="mt-4">
+            <h5>Itinerary Response:</h5>
+            <p>{responseMessage}</p>
+          </div>
+        )}
+
+        {/* Display error if any */}
+        {error && (
+          <div className="mt-4">
+            <p style={{ color: "red" }}>Error: {error}</p>
+          </div>
+        )}
       </Form>
     </div>
   );
