@@ -22,7 +22,7 @@ function TentativeItinerary() {
 
     try {
       const apiKey =
-        "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"; // Replace with your actual OpenAI API key
+        "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"; // Replace with your actual OpenAI API key // Replace with your actual OpenAI API key
       const url = "https://api.openai.com/v1/chat/completions";
 
       const data = {
